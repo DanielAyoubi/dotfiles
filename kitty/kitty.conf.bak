@@ -1,6 +1,6 @@
 # vim:fileencoding=utf-8:ft=conf
 confirm_os_window_close 0
-
+linux_display_server X11
 # Fully featured
 font_family      FiraCode Nerd Font 
 italic_font      auto
@@ -23,7 +23,7 @@ inactive_text_alpha 0.75
 # map alt+down neighboring_window down
 
 # Font size (in pts)
-font_size        15.0
+font_size        13.0
 
 # The amount the font size is changed by (in pts) when increasing/decreasing
 # the font size in a running terminal.
@@ -112,6 +112,6 @@ active_tab_title_template "{fmt.fg._e5c07b}{fmt.bg.default}{fmt.fg._282c34}{f
 
 
 # BEGIN_KITTY_THEME
-# onenord
+# Catppuccin-Frappe
 include current-theme.conf
 # END_KITTY_THEME

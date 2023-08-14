@@ -116,6 +116,7 @@ require("lazy").setup({
 		priority = 1000,
 		config = function()
 			vim.cmd.colorscheme("tokyonight")
+      vim.cmd("highlight CursorLineNr guibg=white")
 		end,
 	},
 
@@ -351,21 +352,11 @@ require("nvim-treesitter.configs").setup({
 	},
 })
 
-require("nvim-treesitter.configs").setup({
-	highlight = {
-		-- ...
-	},
-	-- ...
-	rainbow = {
-		enable = true,
-		-- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
-		extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-		max_file_lines = nil, -- Do not enable for files with more than n lines, int
-		-- colors = {'#FFD700', '#DA70D6', '#179FFF'}, -- table of hex strings
-		-- termcolors = {"Yellow", "Magenta", "Blue"} -- table of colour name strings
-	},
-})
+require('nvim-treesitter.configs').setup {
+  highlight = {
 
+  },
+}
 -- Diagnostic keymaps
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
@@ -479,6 +470,10 @@ cmp.setup({
 			luasnip.lsp_expand(args.body)
 		end,
 	},
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
+  },
 	mapping = cmp.mapping.preset.insert({
 		["<C-n>"] = cmp.mapping.select_next_item(),
 		["<C-p>"] = cmp.mapping.select_prev_item(),
@@ -542,6 +537,11 @@ vim.api.nvim_set_keymap("n", "x", '"_x', { noremap = true })
 vim.api.nvim_set_keymap("v", "x", '"_x', { noremap = true })
 
 vim.api.nvim_set_keymap("n", "<C-a>", "<Esc>ggVG<CR>", { noremap = true })
+vim.api.nvim_set_hl(0, 'LineNrAbove', { fg='#59597f' })
+vim.api.nvim_set_hl(0, 'LineNr', { fg='#b5b5ff' })
+vim.api.nvim_set_hl(0, 'LineNrBelow', { fg='#59597f' })
+
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
