@@ -1,4 +1,11 @@
-LS_COLORS="di=2;34:ex=1;33:*.sh=1;37:*.py=1;92:*.cs=1;35:*.pdf=1;33:*.xlsx=32:*.svg=1;37"
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+LS_COLORS="di=1;34:ex=1;33:*.sh=1;37:*.py=1;92:*.cs=1;35:*.pdf=1;33:*.xlsx=32:*.svg=1;37"
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 export CLICOLOR=1
@@ -6,12 +13,12 @@ export LS_COLORS
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} 
 zstyle ':completion:*' list-colors 'di=31:py=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 
-#ZSH_THEME="robbyrussell"
-ZSH_THEME="eastwood"
+# ZSH_THEME="eastwood"
 zmodload -i zsh/complist
 bindkey -M menuselect '^M' .accept-line
 plugins=(git zsh-autosuggestions)
 
+ZSH_THEME="powerlevel10k/powerlevel10k"
 source $ZSH/oh-my-zsh.sh
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
@@ -47,10 +54,12 @@ alias vpn='sudo openconnect --user=au584144@uni.au.dk --protocol=anyconnect --ba
 alias icat='kitty +kitten icat'
 alias vpn_disconnect='sudo kill $(ps aux | grep openconnect | grep -v grep | awk '"'"'{print $2}'"'"')'
 alias zat='zathura --fork'
-# alias pdf='termpdf'
+alias pdf='termpdf.py'
 alias tg='tree -if | grep'
 alias wifi='nmtui'
 alias nv="NVIM_APPNAME=LazyVim nvim"
+alias p4='lp -d 4.sal-printer'
+alias grendel='kitty +kitten ssh -YC -o ServerAliveInterval=60 -o ServerAliveCountMax=10 danayo@grendel.cscaa.dk'
 
 ########################################
 
@@ -73,3 +82,6 @@ function nvims() {
 }
 
 # bindkey -s ^a "nvims\n"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

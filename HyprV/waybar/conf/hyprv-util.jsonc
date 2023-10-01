@@ -4,7 +4,7 @@
         "exec": "~/.config/HyprV/hyprv_util",
         "return-type" : "json",
         "interval": 30,
-        "format": "{}",
+        "format": "󰐾",
         "on-click": "~/.config/HyprV/hyprv_util vswitch",
         "tooltip": true
     },

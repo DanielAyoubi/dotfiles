@@ -33,13 +33,15 @@ tooltip label{
 
 #workspaces button.active {
     color: #a6adc8;
-}
-
-#workspaces button.focused {
-    color: #a6adc8;
-    background: #eba0ac;
+    background: #b0f7b0;
     border-radius: 10px;
 }
+
+/* #workspaces button.focused { */
+/*     color: #a6adc8; */
+/*     background: #eba0ac; */
+/*     border-radius: 10px; */
+/* } */
 
 #workspaces button.urgent {
     color: #11111b;
@@ -86,7 +88,7 @@ tooltip label{
     border-radius: 10px 0px 0px 10px;
 }
 
-#custom-light_dark, #custom-power_btn, #workspaces, #pulseaudio.microphone, #memory {
+#custom-light_dark, #custom-power_btn,#custom-myhyprv, #workspaces, #pulseaudio.microphone, #memory {
     border-radius: 0px 10px 10px 0px;
     margin-right: 10px;
 }

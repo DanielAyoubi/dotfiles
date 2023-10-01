@@ -3,6 +3,9 @@
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+vim.api.nvim_command([[
+  autocmd BufReadPost * lua if vim.fn.expand('%:t') ~= 'COMMIT_EDITMSG' and vim.fn.line("'\"") > 1 and vim.fn.line("'\"") <= vim.fn.line("$") then vim.fn.execute("normal! g`\"") end
+]])
 
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
@@ -37,6 +40,8 @@ require("lazy").setup({
 
 	-- Detect tabstop and shiftwidth automatically
 	"tpope/vim-sleuth",
+
+  'lervag/vimtex',
 
 	-- NOTE: This is where your plugins related to LSP can be installed.
 	--  The configuration is done below. Search for lspconfig to find it below.
