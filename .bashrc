@@ -33,6 +33,29 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 #Aliases
+# Change directory
+alias ..='cd ..'
+alias ...='cd ../../'
+alias ....='cd ../../../'
+alias .....='cd ../../../../'
+alias ......='cd ../../../../../'
+alias 2d='cd ../../'
+alias 3d='cd ../../../'
+
+alias py='python3'
+alias reload='source ~/.bashrc'
+alias ls='lsd'
+alias lt='ls -v -lrth --color=auto'
+alias grep='grep --color=auto'
+alias vi='nvim'
+alias meminfo='free -m -l -t'
+alias ls='ls --color=auto'
+alias la='ls -A'
+alias l='ls -1'
+alias gh='history | grep'
+alias tg='tree -if | grep'
+alias note='vi ~/.note.md'
+
 
 # History
 export HISTSIZE=10000
