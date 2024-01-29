@@ -6,6 +6,6 @@ if hyprctl monitors | grep -qE "Monitor DP-[0-9]+"; then
     kitty @ set-font-size 10
 else
     # Set a default font size for other cases if needed
-    kitty @ set-font-size 14
+    kitty @ set-font-size 13.5
 fi
 

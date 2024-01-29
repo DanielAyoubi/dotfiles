@@ -41,7 +41,9 @@ Plug 'liuchengxu/vim-which-key'
 Plug 'airblade/vim-gitgutter'
 
 " Theme inspired by Atom
-Plug 'folke/tokyonight.nvim'
+Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
+" Using Vim-Plug
+Plug 'navarasu/onedark.nvim'
 
 " Set airline as statusline
 Plug 'vim-airline/vim-airline'
@@ -169,7 +171,9 @@ nnoremap <expr> <silent> j v:count == 0 ? 'gj' : 'j'
 " Make <Space> trigger key map guide
 nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 " Set color scheme
-colorscheme tokyonight-storm
+set termguicolors
+
+colorscheme catppuccin-macchiato
 " Characters to render for indentation guide
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 

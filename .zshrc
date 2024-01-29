@@ -103,4 +103,5 @@ function nvims() {
   NVIM_APPNAME=$config nvim "$@"
 }
 bindkey -s '^a' 'nvims\n'
-
+export EDITOR=vim
+sh ~/.config/scripts/set_kitty_font.sh
