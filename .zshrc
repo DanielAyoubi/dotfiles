@@ -54,6 +54,7 @@ alias c='clear'
 alias la='ls -A'
 alias l='ls -1'
 alias lt='ls -vlrth'
+alias grep='grep --color=auto'
 alias ff='firefox &'
 alias osync='onedrive --synchronize &'
 alias togrendel='f(){ scp -r "$@" danayo@grendel.cscaa.dk:~/packages/; unset -f f; }; f'
@@ -61,7 +62,7 @@ alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias display='display -density 235'
 alias codi='codium'
-alias vpn='sudo openconnect --user=au584144@uni.au.dk --useragent=AnyConnect --background --reconnect-timeout=100000 --no-external-auth remote.au.dk/au-access'
+alias vpn='sudo openconnect --user=au584144@uni.au.dk --useragent=AnyConnect --background --reconnect-timeout=1000000 --no-external-auth remote.au.dk/au-access'
 alias icat='kitty +kitten icat'
 alias vpn_disconnect='sudo kill $(ps aux | grep openconnect | grep -v grep | awk '"'"'{print $2}'"'"')'
 alias zat='zathura --fork'
@@ -76,12 +77,18 @@ alias reload='source ~/.bashrc'
 alias sqq='squeue --format="%.18i %.9P %.30j %.8u %.8T %.10M %.9l %.6D %R" --me'
 alias gh='history | grep'
 alias tg='tree -if | grep'
+alias mol='molden -l'
+alias fullcharge='sudo tlp fullcharge'
+alias mg='sshfs -o Ciphers=arcfour,compression=no,auto_cache,reconnect danayo@grendel.cscaa.dk:/home/danayo/ ~/grendel'
+alias mg2='sshfs danayo@grendel.cscaa.dk:/home/danayo/ ~/grendel -o auto_unmount,compression=no,auto_cache,reconnect,kernel_cache,cache_timeout=115200'
+
 
 
 # Exported PATH
 export PATH="~/.dotnet/tools:$PATH"
 export PATH="usr/local/texlive/2022/bin/x86_64-linux:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export PATH=/usr/local/texlive/2022/bin/x86_64-linux:$PATH
 
 # Source
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -103,5 +110,6 @@ function nvims() {
   NVIM_APPNAME=$config nvim "$@"
 }
 bindkey -s '^a' 'nvims\n'
-export EDITOR=vim
+export EDITOR=nvim
 sh ~/.config/scripts/set_kitty_font.sh
+export TERMINAL=kitty

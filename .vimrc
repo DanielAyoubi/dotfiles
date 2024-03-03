@@ -58,8 +58,13 @@ Plug 'tpope/vim-commentary'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
+Plug 'lervag/vimtex'
+
 call plug#end()
 
+filetype plugin indent on
+syntax enable
+let g:vimtex_view_method = 'zathura'
 
 " [[ Setting sensible default options ]]
 " These are some of the settings enabled by default in Neovim.

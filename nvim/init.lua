@@ -116,9 +116,7 @@ require("lazy").setup({
 	},
 
 	{
-		-- Theme inspired by Atom
 		"folke/tokyonight.nvim",
-		priority = 1000,
 		config = function()
 			vim.cmd.colorscheme("tokyonight")
       vim.cmd("highlight CursorLineNr guibg=white")
@@ -275,14 +273,15 @@ pcall(require("telescope").load_extension, "fzf")
 
 -- See `:help telescope.builtin`
 vim.keymap.set("n", "<leader>?", require("telescope.builtin").oldfiles, { desc = "[?] Find recently opened files" })
-vim.keymap.set("n", "<leader><space>", require("telescope.builtin").buffers, { desc = "[ ] Find existing buffers" })
-vim.keymap.set("n", "<leader>/", function()
-	-- You can pass additional configuration to telescope to change theme, layout, etc.
-	require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
-		winblend = 10,
-		previewer = false,
-	}))
-end, { desc = "[/] Fuzzily search in current buffer" })
+vim.keymap.set("n", "<leader><space>", require("telescope.builtin").find_files, { desc = "[ ] Find Files (root)" })
+vim.keymap.set("n", "<leader>/", require("telescope.builtin").live_grep, { desc = "[/] Grep (root)" })
+-- vim.keymap.set("n", "<leader>/", function()
+-- 	-- You can pass additional configuration to telescope to change theme, layout, etc.
+-- 	require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+-- 		winblend = 10,
+-- 		previewer = false,
+-- 	}))
+-- end, { desc = "[/] Fuzzily search in current buffer" })
 
 vim.keymap.set("n", "<leader>gf", require("telescope.builtin").git_files, { desc = "Search [G]it [F]iles" })
 vim.keymap.set("n", "<leader>sf", require("telescope.builtin").find_files, { desc = "[S]earch [F]iles" })
@@ -439,6 +438,7 @@ local servers = {
 
 -- Setup neovim lua configuration
 require("neodev").setup()
+
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()

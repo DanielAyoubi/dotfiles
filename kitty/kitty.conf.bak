@@ -3,6 +3,7 @@ confirm_os_window_close 0
 KITTY_ENABLE_WAYLAND=1
 copy_on_select yes
 editor nvim
+allow_remote_control yes
 
 # Fully featured
 font_family      FiraCode Nerd Font 
@@ -27,7 +28,9 @@ inactive_text_alpha 0.75
 
 # Font size (in pts)
 # font_size        14.0
-font_size        12.0
+font_size        11.0
+# startup_session ~/scripts/set_kitty_font.sh
+launch sh ~/scripts/set_kitty_font.sh
 
 # The amount the font size is changed by (in pts) when increasing/decreasing
 # the font size in a running terminal.
@@ -89,6 +92,7 @@ use_system_wcwidth yes
 term xterm-kitty
 
 #window decorations
+hide_window_decorations yes
 window_border_width 0.5pt
 window_padding_width 0
 # active_border_color #00ff00
@@ -115,6 +119,6 @@ active_tab_title_template "{fmt.fg._e5c07b}{fmt.bg.default}{fmt.fg._282c34}{f
 
 
 # BEGIN_KITTY_THEME
-# Tokyo Night
+# Adapta Nokto Maia
 include current-theme.conf
 # END_KITTY_THEME
