@@ -24,12 +24,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- NOTE: Here is where you install your plugins.
---  You can configure plugins using the `config` key.
---
---  You can also configure plugins after the setup call,
---    as they will be available in your neovim runtime.
 require("lazy").setup({
-	-- NOTE: First, some plugins that don't require any configuration
 
 	-- Git related plugins
 	"tpope/vim-fugitive",
@@ -118,8 +113,8 @@ require("lazy").setup({
 	{
 		"folke/tokyonight.nvim",
 		config = function()
-			vim.cmd.colorscheme("tokyonight")
-      vim.cmd("highlight CursorLineNr guibg=white")
+			vim.cmd.colorscheme("tokyonight-night")
+			vim.cmd("highlight CursorLineNr guifg=white")
 		end,
 	},
 
@@ -196,7 +191,8 @@ require("lazy").setup({
 -- NOTE: You can change these options as you wish!
 
 -- Set highlight on search
-vim.o.hlsearch = false
+vim.opt.hlsearch = true
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Make line numbers default
 vim.wo.number = true
@@ -205,8 +201,6 @@ vim.wo.number = true
 vim.o.mouse = "a"
 
 -- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
 vim.o.clipboard = "unnamedplus"
 
 -- Enable break indent
@@ -234,7 +228,12 @@ vim.o.termguicolors = true
 
 -- relative numbers
 vim.opt.relativenumber = true
--- [[ Basic Keymaps ]]
+
+-- Minimal number of screen lines to keep above and below the cursor.
+vim.opt.scrolloff = 5
+
+-- Show which line your cursor is on
+vim.opt.cursorline = true
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
@@ -526,6 +525,10 @@ vim.api.nvim_set_keymap("i", "<C-BS>", "<C-W>", { noremap = true })
 -- Set LineNr highlight to white
 vim.cmd("highlight LineNr ctermfg=white")
 
+-- Set background to transparent - terminal theme determines background
+vim.cmd("highlight Normal guibg=NONE ctermbg=NONE")
+vim.cmd("highlight NormalNC guibg=NONE ctermbg=NONE")
+
 -- Replace <C-@> with <C-y> in insert mode
 vim.api.nvim_set_keymap("i", "<C-@>", "<C-y>", { noremap = true })
 
@@ -545,8 +548,4 @@ vim.api.nvim_set_keymap("n", "<C-a>", "<Esc>ggVG<CR>", { noremap = true })
 vim.api.nvim_set_hl(0, 'LineNrAbove', { fg='#59597f' })
 vim.api.nvim_set_hl(0, 'LineNr', { fg='#b5b5ff' })
 vim.api.nvim_set_hl(0, 'LineNrBelow', { fg='#59597f' })
-
-
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
 
