@@ -44,6 +44,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 " Using Vim-Plug
 Plug 'navarasu/onedark.nvim'
+Plug 'folke/tokyonight.nvim'
 
 " Set airline as statusline
 Plug 'vim-airline/vim-airline'
@@ -178,7 +179,7 @@ nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 " Set color scheme
 set termguicolors
 
-colorscheme catppuccin-macchiato
+colorscheme tokyonight-night
 " Characters to render for indentation guide
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 

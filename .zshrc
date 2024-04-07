@@ -62,7 +62,7 @@ alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias display='display -density 235'
 alias codi='codium'
-alias vpn='sudo openconnect --user=au584144@uni.au.dk --useragent=AnyConnect --background --reconnect-timeout=1000000 --no-external-auth remote.au.dk/au-access'
+alias vpn='sudo openconnect --user=au584144@uni.au.dk --useragent=AnyConnect --background --reconnect-timeout=10000 --no-external-auth remote.au.dk/au-access'
 alias icat='kitty +kitten icat'
 alias vpn_disconnect='sudo kill $(ps aux | grep openconnect | grep -v grep | awk '"'"'{print $2}'"'"')'
 alias zat='zathura --fork'
@@ -79,8 +79,8 @@ alias gh='history | grep'
 alias tg='tree -if | grep'
 alias mol='molden -l'
 alias fullcharge='sudo tlp fullcharge'
-alias mg='sshfs -o Ciphers=arcfour,compression=no,auto_cache,reconnect danayo@grendel.cscaa.dk:/home/danayo/ ~/grendel'
-alias mg2='sshfs danayo@grendel.cscaa.dk:/home/danayo/ ~/grendel -o auto_unmount,compression=no,auto_cache,reconnect,kernel_cache,cache_timeout=115200'
+# alias mg='sshfs danayo@grendel.cscaa.dk:/home/danayo/ ~/grendel -o auto_unmount,compression=no,auto_cache,reconnect,kernel_cache,cache_timeout=115200'
+alias mg='sshfs danayo@grendel.cscaa.dk:/home/danayo/ ~/grendel -o reconnect,ServerAliveInterval=15,ServerAliveCountMax=3'
 
 
 
@@ -113,3 +113,19 @@ bindkey -s '^a' 'nvims\n'
 export EDITOR=nvim
 sh ~/.config/scripts/set_kitty_font.sh
 export TERMINAL=kitty
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/usr/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/usr/etc/profile.d/conda.sh" ]; then
+        . "/usr/etc/profile.d/conda.sh"
+    else
+        export PATH="/usr/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+

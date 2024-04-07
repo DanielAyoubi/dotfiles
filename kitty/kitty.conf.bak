@@ -119,6 +119,6 @@ active_tab_title_template "{fmt.fg._e5c07b}{fmt.bg.default}{fmt.fg._282c34}{f
 
 
 # BEGIN_KITTY_THEME
-# Tokyo Night Storm
+# Gruvbox Dark
 include current-theme.conf
 # END_KITTY_THEME

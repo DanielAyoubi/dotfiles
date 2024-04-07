@@ -36,7 +36,24 @@ require("lazy").setup({
 	-- Detect tabstop and shiftwidth automatically
 	"tpope/vim-sleuth",
 
-  'lervag/vimtex',
+	 { -- Latex
+		"lervag/vimtex",
+		ft = "tex",
+		config = function()
+		    -- Enable spell checking for LaTeX files
+		    vim.api.nvim_create_autocmd("FileType", {
+			pattern = "tex",
+			callback = function()
+			    vim.opt_local.spell = true
+			    -- Optionally set the spell language
+			    vim.opt_local.spelllang = "en_us"
+			end,
+		    })
+		    -- Add any additional vimtex-specific configuration here
+		    -- For example, to set vimtex options:
+		    -- vim.g.vimtex_quickfix_open_on_warning = 0
+		end
+        },
 
 	-- NOTE: This is where your plugins related to LSP can be installed.
 	--  The configuration is done below. Search for lspconfig to find it below.
@@ -117,6 +134,9 @@ require("lazy").setup({
 			vim.cmd("highlight CursorLineNr guifg=white")
 		end,
 	},
+
+	  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+
 
 	{
 		-- Set lualine as statusline
@@ -548,4 +568,11 @@ vim.api.nvim_set_keymap("n", "<C-a>", "<Esc>ggVG<CR>", { noremap = true })
 vim.api.nvim_set_hl(0, 'LineNrAbove', { fg='#59597f' })
 vim.api.nvim_set_hl(0, 'LineNr', { fg='#b5b5ff' })
 vim.api.nvim_set_hl(0, 'LineNrBelow', { fg='#59597f' })
+
+vim.cmd([[
+  augroup LaTeXSpellCheck
+    autocmd!
+    autocmd FileType tex setlocal spell spelllang=en_us
+  augroup END
+]])
 
