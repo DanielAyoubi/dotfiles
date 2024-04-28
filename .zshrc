@@ -69,6 +69,7 @@ alias zat='zathura --fork'
 alias pdf='termpdf.py'
 alias tg='tree -if | grep'
 alias wifi='nmtui'
+alias yay='paru'
 alias nv='NVIM_APPNAME=LazyVim nvim'
 alias p4='lp -d 4.sal-printer'
 alias grendel='ssh -YC -o ServerAliveInterval=240 -o ServerAliveCountMax=100 danayo@grendel.cscaa.dk'
@@ -81,6 +82,7 @@ alias mol='molden -l'
 alias fullcharge='sudo tlp fullcharge'
 # alias mg='sshfs danayo@grendel.cscaa.dk:/home/danayo/ ~/grendel -o auto_unmount,compression=no,auto_cache,reconnect,kernel_cache,cache_timeout=115200'
 alias mg='sshfs danayo@grendel.cscaa.dk:/home/danayo/ ~/grendel -o reconnect,ServerAliveInterval=15,ServerAliveCountMax=3'
+alias speciale='cd /home/daniel/Dropbox/speciale ; vi main.tex'
 
 
 
