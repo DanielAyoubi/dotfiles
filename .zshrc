@@ -1,8 +1,8 @@
 # History settings
 HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
-HISTFILESIZE=10000
+HISTSIZE=100000
+SAVEHIST=100000
+HISTFILESIZE=100000
 setopt appendhistory
 setopt INC_APPEND_HISTORY
 setopt HIST_IGNORE_DUPS
@@ -49,7 +49,7 @@ alias update='sudo pacman -Syu'
 alias reload='source ~/.zshrc'
 alias vi='nvim'
 alias py='python3'
-alias gh='history | grep'
+alias gh='history 1 | grep'
 alias c='clear'
 alias la='ls -A'
 alias l='ls -1'
@@ -80,7 +80,6 @@ alias gh='history | grep'
 alias tg='tree -if | grep'
 alias mol='molden -l'
 alias fullcharge='sudo tlp fullcharge'
-# alias mg='sshfs danayo@grendel.cscaa.dk:/home/danayo/ ~/grendel -o auto_unmount,compression=no,auto_cache,reconnect,kernel_cache,cache_timeout=115200'
 alias mg='sshfs danayo@grendel.cscaa.dk:/home/danayo/ ~/grendel -o reconnect,ServerAliveInterval=15,ServerAliveCountMax=3'
 alias speciale='cd /home/daniel/Dropbox/speciale ; vi main.tex'
 
@@ -131,3 +130,6 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+# fzf
+eval "$(fzf --zsh)"
+export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden --follow --exclude .git'
