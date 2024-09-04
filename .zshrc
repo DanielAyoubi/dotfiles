@@ -1,11 +1,4 @@
-# PROMPT='%F{blue}[%~]%f %F{white}$ %f'
-autoload -Uz vcs_info
-zstyle ':vcs_info:*' enable git svn
-zstyle ':vcs_info:git*' formats "- (%b) "
-precmd() { vcs_info }
-setopt prompt_subst
-PROMPT='%F{blue}[%~]%f %F{yellow}${vcs_info_msg_0_}%f %F{white}$ %f'
-
+PROMPT='%F{blue}[%~]%f %F{white}$ %f'
 
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
@@ -43,6 +36,10 @@ bindkey '^[[A' history-search-backward
 bindkey '^[[B' history-search-forward
 bindkey '^[w' kill-region
 bindkey -M menuselect '^M' .accept-line
+bindkey "^[[1;3C" forward-word   
+bindkey "^[[1;3D" backward-word 
+WORDCHARS='*?[]~=&;!#$%^(){}<>'
+
 
 # History settings
 HISTSIZE=100000
@@ -60,8 +57,9 @@ HISTORY_IGNORE="(ls|cd|pwd|reload|mv)"
 
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' menu select
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
 
 # Aliases
 source ~/.alias
@@ -78,3 +76,26 @@ zle -N down-line-or-beginning-search
 bindkey "^[[A" up-line-or-beginning-search # Up
 bindkey "^[[B" down-line-or-beginning-search # Down
 
+
+# Created by `pipx` on 2024-08-05 15:57:02
+export PATH="$PATH:/home/daniel/.local/bin"
+export PATH="$HOME/.local/bin:$PATH"
+
+
+show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
+
+export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
+export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+
+# Advanced customization of fzf options via _fzf_comprun function
+_fzf_comprun() {
+  local command=$1
+  shift
+
+  case "$command" in
+    cd)           fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
+    export|unset) fzf --preview "eval 'echo ${}'"         "$@" ;;
+    ssh)          fzf --preview 'dig {}'                   "$@" ;;
+    *)            fzf --preview "$show_file_or_dir_preview" "$@" ;;
+  esac
+}
