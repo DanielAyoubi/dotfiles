@@ -1,0 +1,6 @@
+[pyprland]
+plugins = [
+    "workspaces_follow_focus",
+    "expose",
+    "layout_center"
+]
