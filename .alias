@@ -20,7 +20,7 @@ alias lt='eza --color=always --long --icons=always --no-user --sort=time'
 alias grep='grep --color=auto'
 alias osync='onedrive --synchronize &'
 alias togrendel='f(){ scp -r "$@" danayo@grendel.cscaa.dk:~/packages/; unset -f f; }; f'
-alias vpn='sudo openconnect --user=au584144@uni.au.dk --useragent=AnyConnect --background --reconnect-timeout=10000 --no-external-auth remote.au.dk/au-access'
+alias vpn='sudo openconnect --user=au584144@uni.au.dk --useragent=AnyConnect --background --reconnect-timeout=10000 --no-external-auth remote.au.dk/ST'
 alias icat='kitty +kitten icat'
 alias vpn_disconnect='sudo kill $(ps aux | grep openconnect | grep -v grep | awk '"'"'{print $2}'"'"')'
 alias zat='zathura --fork'
@@ -38,6 +38,9 @@ alias mol='molden -l'
 alias fullcharge='sudo tlp fullcharge'
 alias mg='sshfs danayo@grendel.cscaa.dk:/home/danayo/ ~/grendel -o reconnect,ServerAliveInterval=15,ServerAliveCountMax=3'
 alias cat='bat'
+
+alias res1="sed -i 's/monitor=DP-1,1920x1080@60.0,1265x583,1.0/monitor=DP-1,3440x1440@60,473x223,1.0/' ~/.config/hypr/monitors.conf"
+alias res2="sed -i 's/monitor=DP-1,3440x1440@60,473x223,1.0/monitor=DP-1,1920x1080@60.0,1265x583,1.0/' ~/.config/hypr/monitors.conf"
 
 LS_COLORS='di=34:ex=33:*.sh=31:*.py=32:*.pyc=32:*.pdf=33:*.zip=35:*.tar=35:*.gz=35:*.bz2=35:*.xz=35:*.jpg=36:*.jpeg=36:*.png=36:*.gif=36:*.bmp=36:*.mp3=36:*.wav=36:*.ogg=36:*.flac=36:*.mkv=36:*.mp4=36:*.avi=36:*.mov=36:*.flv=36:'
 export LS_COLORS
