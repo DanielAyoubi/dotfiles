@@ -97,22 +97,9 @@ bindkey "^[[B" down-line-or-beginning-search # Down
 # PATHS
 export PATH="/opt/homebrew/opt/python@3.12/libexec/bin:$PATH"
 
-<<<<<<< HEAD
-# Created by `pipx` on 2024-08-05 15:57:02
-export PATH="$PATH:/home/daniel/.local/bin"
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="/opt/homebrew/opt/python@3.12/libexec/bin:$PATH"
-
-
-show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
-
-export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
-export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
-=======
 # show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
 # export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
 # export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
->>>>>>> 9e0a8eaad3b5668e95defc1f310efa8e36d8367f
 
 # Advanced customization of fzf options via _fzf_comprun function
 _fzf_comprun() {

@@ -9,7 +9,6 @@ vim.api.nvim_command([[
 
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
---    `:help lazy.nvim.txt` for more info
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
@@ -17,7 +16,7 @@ if not vim.loop.fs_stat(lazypath) then
 		"clone",
 		"--filter=blob:none",
 		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable", -- latest stable release
+		"--branch=stable",
 		lazypath,
 	})
 end
@@ -152,16 +151,16 @@ require("lazy").setup({
 		},
 	},
 
-	{
-		-- Add indentation guides even on blank lines
-		"lukas-reineke/indent-blankline.nvim",
-		-- Enable `lukas-reineke/indent-blankline.nvim`
-		-- See `:help indent_blankline.txt`
-		opts = {
-			char = "┊",
-			show_trailing_blankline_indent = false,
-		},
-	},
+	-- {
+	-- 	-- Add indentation guides even on blank lines
+	-- 	"lukas-reineke/indent-blankline.nvim",
+	-- 	-- Enable `lukas-reineke/indent-blankline.nvim`
+	-- 	-- See `:help indent_blankline.txt`
+	-- 	opts = {
+	-- 		char = "┊",
+	-- 		show_trailing_blankline_indent = false,
+	-- 	},
+	-- },
 
 	-- "gc" to comment visual regions/lines
 	{ "numToStr/Comment.nvim", opts = {} },
@@ -191,9 +190,6 @@ require("lazy").setup({
 		build = ":TSUpdate",
 	},
 
-	-- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
-	--       These are some example plugins that I've included in the kickstart repository.
-	--       Uncomment any of the lines below to enable them.
 	-- require 'kickstart.plugins.autoformat',
 	-- require 'kickstart.plugins.debug',
 
@@ -445,7 +441,7 @@ local servers = {
 	pyright = {},
 	-- rust_analyzer = {},
 	-- tsserver = {},
-	-- html = { filetypes = { 'html', 'twig', 'hbs'} },
+	html = { filetypes = { 'html', 'twig', 'hbs'} },
 
 	lua_ls = {
 		Lua = {
@@ -457,7 +453,6 @@ local servers = {
 
 -- Setup neovim lua configuration
 require("neodev").setup()
-
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -539,18 +534,8 @@ vim.api.nvim_set_keymap("i", "<C-BS>", "<C-W>", { noremap = true })
 -- Replace <C-h> with <C-W> in insert mode
 vim.api.nvim_set_keymap("i", "<C-h>", "<C-W>", { noremap = true })
 
--- Replace <C-BS> with <C-W> in insert mode
-vim.api.nvim_set_keymap("i", "<C-BS>", "<C-W>", { noremap = true })
-
 -- Set LineNr highlight to white
 vim.cmd("highlight LineNr ctermfg=white")
-
--- Set background to transparent - terminal theme determines background
-vim.cmd("highlight Normal guibg=NONE ctermbg=NONE")
-vim.cmd("highlight NormalNC guibg=NONE ctermbg=NONE")
-
--- Replace <C-@> with <C-y> in insert mode
-vim.api.nvim_set_keymap("i", "<C-@>", "<C-y>", { noremap = true })
 
 -- Map 'd' to "_d in normal mode (black hole register)
 vim.api.nvim_set_keymap("n", "d", '"_d', { noremap = true })
@@ -564,10 +549,10 @@ vim.api.nvim_set_keymap("n", "x", '"_x', { noremap = true })
 -- Map 'x' to "_x in visual mode (black hole register)
 vim.api.nvim_set_keymap("v", "x", '"_x', { noremap = true })
 
-vim.api.nvim_set_keymap("n", "<C-a>", "<Esc>ggVG<CR>", { noremap = true })
-vim.api.nvim_set_hl(0, 'LineNrAbove', { fg='#59597f' })
-vim.api.nvim_set_hl(0, 'LineNr', { fg='#b5b5ff' })
-vim.api.nvim_set_hl(0, 'LineNrBelow', { fg='#59597f' })
+vim.api.nvim_set_keymap("n", "<C-a>", "<Esc>ggVG<CR>", { noremap = true }) -- ctrl + a for select all text
+-- vim.api.nvim_set_hl(0, 'LineNrAbove', { fg='#59597f' })
+-- vim.api.nvim_set_hl(0, 'LineNr', { fg='#b5b5ff' })
+-- vim.api.nvim_set_hl(0, 'LineNrBelow', { fg='#59597f' })
 
 vim.cmd([[
   augroup LaTeXSpellCheck
