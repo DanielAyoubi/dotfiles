@@ -1,4 +1,6 @@
 PROMPT='%F{blue}[%~]%f %F{white}$ %f'
+LS_COLORS='di=34:ex=33:*.sh=31:*.py=32:*.pyc=32:*.pdf=33:*.zip=35:*.tar=35:*.gz=35:*.bz2=35:*.xz=35:*.jpg=36:*.jpeg=36:*.png=36:*.gif=36:*.bmp=36:*.mp3=36:*.wav=36:*.ogg=36:*.flac=36:*.mkv=36:*.mp4=36:*.avi=36:*.mov=36:*.flv=36:'
+export LS_COLORS
 
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
@@ -62,7 +64,23 @@ zstyle ':completion:*' menu select
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
 
 # Aliases
-source ~/.alias
+alias ..='cd ..'
+alias ...='cd ../../'
+alias ....='cd ../../../'
+alias .....='cd ../../../../'
+alias ......='cd ../../../../../'
+alias 2d='cd ../../'
+alias 3d='cd ../../../'
+alias 4d='cd ../../../../'
+alias ls='lsd'
+alias reload='source ~/.zshrc'
+alias vi='nvim'
+alias la='ls -A'
+alias l='ls -1'
+alias lt='eza --color=always --long --icons=always --no-user --sort=time'
+alias tg='tree -if | grep'
+alias nv='NVIM_APPNAME=LazyVim nvim'
+alias py='python3'
 
 # Shell integrations
 eval "$(fzf --zsh)"
@@ -76,7 +94,10 @@ zle -N down-line-or-beginning-search
 bindkey "^[[A" up-line-or-beginning-search # Up
 bindkey "^[[B" down-line-or-beginning-search # Down
 
+# PATHS
+export PATH="/opt/homebrew/opt/python@3.12/libexec/bin:$PATH"
 
+<<<<<<< HEAD
 # Created by `pipx` on 2024-08-05 15:57:02
 export PATH="$PATH:/home/daniel/.local/bin"
 export PATH="$HOME/.local/bin:$PATH"
@@ -87,6 +108,11 @@ show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head
 
 export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
 export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+=======
+# show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
+# export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
+# export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+>>>>>>> 9e0a8eaad3b5668e95defc1f310efa8e36d8367f
 
 # Advanced customization of fzf options via _fzf_comprun function
 _fzf_comprun() {
@@ -100,3 +126,6 @@ _fzf_comprun() {
     *)            fzf --preview "$show_file_or_dir_preview" "$@" ;;
   esac
 }
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+

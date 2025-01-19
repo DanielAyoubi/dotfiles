@@ -1,7 +1,212 @@
 -- Set <space> as the leader key
+<<<<<<< HEAD
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.g.have_nerd_font = true
+=======
+-- See `:help mapleader`
+--  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+vim.api.nvim_command([[
+  autocmd BufReadPost * lua if vim.fn.expand('%:t') ~= 'COMMIT_EDITMSG' and vim.fn.line("'\"") > 1 and vim.fn.line("'\"") <= vim.fn.line("$") then vim.fn.execute("normal! g`\"") end
+]])
+
+-- Install package manager
+--    https://github.com/folke/lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable",
+		lazypath,
+	})
+end
+vim.opt.rtp:prepend(lazypath)
+
+-- NOTE: Here is where you install your plugins.
+require("lazy").setup({
+
+	-- Git related plugins
+	"tpope/vim-fugitive",
+	"tpope/vim-rhubarb",
+
+	-- Rainbow brackets
+	"p00f/nvim-ts-rainbow",
+
+	-- Detect tabstop and shiftwidth automatically
+	"tpope/vim-sleuth",
+
+	 { -- Latex
+		"lervag/vimtex",
+		ft = "tex",
+		config = function()
+		    -- Enable spell checking for LaTeX files
+		    vim.api.nvim_create_autocmd("FileType", {
+			pattern = "tex",
+			callback = function()
+			    vim.opt_local.spell = true
+			    -- Optionally set the spell language
+			    vim.opt_local.spelllang = "en_us"
+			end,
+		    })
+		    -- Add any additional vimtex-specific configuration here
+		    -- For example, to set vimtex options:
+		    -- vim.g.vimtex_quickfix_open_on_warning = 0
+		end
+        },
+
+	-- NOTE: This is where your plugins related to LSP can be installed.
+	--  The configuration is done below. Search for lspconfig to find it below.
+	{
+		-- LSP Configuration & Plugins
+		"neovim/nvim-lspconfig",
+		dependencies = {
+			-- Automatically install LSPs to stdpath for neovim
+			{ "williamboman/mason.nvim", config = true },
+			"williamboman/mason-lspconfig.nvim",
+
+			-- Useful status updates for LSP
+			-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
+			{ "j-hui/fidget.nvim", tag = "legacy", opts = {} },
+
+			-- Additional lua configuration, makes nvim stuff amazing!
+			"folke/neodev.nvim",
+		},
+	},
+
+	{
+		-- Autocompletion
+		"hrsh7th/nvim-cmp",
+		dependencies = {
+			-- Snippet Engine & its associated nvim-cmp source
+			"L3MON4D3/LuaSnip",
+			"saadparwaiz1/cmp_luasnip",
+
+			-- Adds LSP completion capabilities
+			"hrsh7th/cmp-nvim-lsp",
+
+			-- Adds a number of user-friendly snippets
+			"rafamadriz/friendly-snippets",
+		},
+	},
+
+	-- Useful plugin to show you pending keybinds.
+	{ "folke/which-key.nvim", opts = {} },
+	{
+		-- Adds git related signs to the gutter, as well as utilities for managing changes
+		"lewis6991/gitsigns.nvim",
+		opts = {
+			-- See `:help gitsigns.txt`
+			signs = {
+				add = { text = "+" },
+				change = { text = "~" },
+				delete = { text = "_" },
+				topdelete = { text = "‾" },
+				changedelete = { text = "~" },
+			},
+			on_attach = function(bufnr)
+				vim.keymap.set(
+					"n",
+					"<leader>gp",
+					require("gitsigns").prev_hunk,
+					{ buffer = bufnr, desc = "[G]o to [P]revious Hunk" }
+				)
+				vim.keymap.set(
+					"n",
+					"<leader>gn",
+					require("gitsigns").next_hunk,
+					{ buffer = bufnr, desc = "[G]o to [N]ext Hunk" }
+				)
+				vim.keymap.set(
+					"n",
+					"<leader>ph",
+					require("gitsigns").preview_hunk,
+					{ buffer = bufnr, desc = "[P]review [H]unk" }
+				)
+			end,
+		},
+	},
+
+	{
+		"folke/tokyonight.nvim",
+		config = function()
+			vim.cmd.colorscheme("tokyonight-night")
+			vim.cmd("highlight CursorLineNr guifg=white")
+		end,
+	},
+
+	  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+
+
+	{
+		-- Set lualine as statusline
+		"nvim-lualine/lualine.nvim",
+		-- See `:help lualine.txt`
+		opts = {
+			options = {
+				icons_enabled = false,
+				theme = "tokyonight",
+				component_separators = "|",
+				section_separators = "",
+			},
+		},
+	},
+
+	-- {
+	-- 	-- Add indentation guides even on blank lines
+	-- 	"lukas-reineke/indent-blankline.nvim",
+	-- 	-- Enable `lukas-reineke/indent-blankline.nvim`
+	-- 	-- See `:help indent_blankline.txt`
+	-- 	opts = {
+	-- 		char = "┊",
+	-- 		show_trailing_blankline_indent = false,
+	-- 	},
+	-- },
+
+	-- "gc" to comment visual regions/lines
+	{ "numToStr/Comment.nvim", opts = {} },
+
+	-- Fuzzy Finder (files, lsp, etc)
+	{ "nvim-telescope/telescope.nvim", branch = "0.1.x", dependencies = { "nvim-lua/plenary.nvim" } },
+
+	-- Fuzzy Finder Algorithm which requires local dependencies to be built.
+	-- Only load if `make` is available. Make sure you have the system
+	-- requirements installed.
+	{
+		"nvim-telescope/telescope-fzf-native.nvim",
+		-- NOTE: If you are having trouble with this installation,
+		--       refer to the README for telescope-fzf-native for more instructions.
+		build = "make",
+		cond = function()
+			return vim.fn.executable("make") == 1
+		end,
+	},
+
+	{
+		-- Highlight, edit, and navigate code
+		"nvim-treesitter/nvim-treesitter",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter-textobjects",
+		},
+		build = ":TSUpdate",
+	},
+
+	-- require 'kickstart.plugins.autoformat',
+	-- require 'kickstart.plugins.debug',
+
+	-- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
+	--    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
+	--    up-to-date with whatever is in the kickstart repo.
+	--    Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
+	--
+	--    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
+	{ import = "custom.plugins" },
+}, {})
+>>>>>>> 9e0a8eaad3b5668e95defc1f310efa8e36d8367f
 
 -- [[ Setting options ]]
 -- Sync clipboard between OS and Neovim.
@@ -73,6 +278,7 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+<<<<<<< HEAD
 -- [[ Basic Autocommands ]]
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -81,6 +287,69 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function()
     vim.highlight.on_yank()
   end,
+=======
+	nmap("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
+	nmap("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+	nmap("gI", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
+	nmap("<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
+	nmap("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
+	nmap("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+
+	-- See `:help K` for why this keymap
+	nmap("K", vim.lsp.buf.hover, "Hover Documentation")
+	nmap("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
+
+	-- Lesser used LSP functionality
+	nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+	nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
+	nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
+	nmap("<leader>wl", function()
+		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+	end, "[W]orkspace [L]ist Folders")
+
+	-- Create a command `:Format` local to the LSP buffer
+	vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
+		vim.lsp.buf.format()
+	end, { desc = "Format current buffer with LSP" })
+end
+
+-- Enable the following language servers
+--  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
+--
+--  Add any additional override configuration in the following tables. They will be passed to
+--  the `settings` field of the server config. You must look up that documentation yourself.
+--
+--  If you want to override the default filetypes that your language server will attach to you can
+--  define the property 'filetypes' to the map in question.
+local servers = {
+	clangd = {},
+	-- gopls = {},
+	pyright = {},
+	-- rust_analyzer = {},
+	-- tsserver = {},
+	html = { filetypes = { 'html', 'twig', 'hbs'} },
+
+	lua_ls = {
+		Lua = {
+			workspace = { checkThirdParty = false },
+			telemetry = { enable = false },
+		},
+	},
+}
+
+-- Setup neovim lua configuration
+require("neodev").setup()
+
+-- nvim-cmp supports additional completion capabilities, so broadcast that to servers
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+
+-- Ensure the servers above are installed
+local mason_lspconfig = require("mason-lspconfig")
+
+mason_lspconfig.setup({
+	ensure_installed = vim.tbl_keys(servers),
+>>>>>>> 9e0a8eaad3b5668e95defc1f310efa8e36d8367f
 })
 
 -- [[ Install `lazy.nvim` plugin manager ]]
@@ -663,4 +932,40 @@ require('lazy').setup({
   },
 })
 
+<<<<<<< HEAD
 -- vim: ts=4 sts=4 sw=4 et
+=======
+-- Replace <C-BS> with <C-W> in insert mode
+vim.api.nvim_set_keymap("i", "<C-BS>", "<C-W>", { noremap = true })
+
+-- Replace <C-h> with <C-W> in insert mode
+vim.api.nvim_set_keymap("i", "<C-h>", "<C-W>", { noremap = true })
+
+-- Set LineNr highlight to white
+vim.cmd("highlight LineNr ctermfg=white")
+
+-- Map 'd' to "_d in normal mode (black hole register)
+vim.api.nvim_set_keymap("n", "d", '"_d', { noremap = true })
+
+-- Map 'd' to "_d in visual mode (black hole register)
+vim.api.nvim_set_keymap("v", "d", '"_d', { noremap = true })
+
+-- Map 'x' to "_x in normal mode (black hole register)
+vim.api.nvim_set_keymap("n", "x", '"_x', { noremap = true })
+
+-- Map 'x' to "_x in visual mode (black hole register)
+vim.api.nvim_set_keymap("v", "x", '"_x', { noremap = true })
+
+vim.api.nvim_set_keymap("n", "<C-a>", "<Esc>ggVG<CR>", { noremap = true }) -- ctrl + a for select all text
+-- vim.api.nvim_set_hl(0, 'LineNrAbove', { fg='#59597f' })
+-- vim.api.nvim_set_hl(0, 'LineNr', { fg='#b5b5ff' })
+-- vim.api.nvim_set_hl(0, 'LineNrBelow', { fg='#59597f' })
+
+vim.cmd([[
+  augroup LaTeXSpellCheck
+    autocmd!
+    autocmd FileType tex setlocal spell spelllang=en_us
+  augroup END
+]])
+
+>>>>>>> 9e0a8eaad3b5668e95defc1f310efa8e36d8367f
