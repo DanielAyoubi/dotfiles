@@ -80,6 +80,7 @@ bindkey "^[[B" down-line-or-beginning-search # Down
 # Created by `pipx` on 2024-08-05 15:57:02
 export PATH="$PATH:/home/daniel/.local/bin"
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="/opt/homebrew/opt/python@3.12/libexec/bin:$PATH"
 
 
 show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"

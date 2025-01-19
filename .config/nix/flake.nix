@@ -21,22 +21,32 @@
 	  pkgs.mkalias
 	  pkgs.kitty
 	  pkgs.iterm2
+	  pkgs.zoxide
+	  pkgs.fzf
+	  pkgs.eza
+	  pkgs.lsd
         ];
 
 	homebrew = {
 	  enable = true;
 	  brews = [
 		"mas"
+		"stow"
+		"node"
+		"openconnect"
 	  ];
 	  casks = [
 		"alt-tab"
 		"raycast"
+    "xquartz"
 	  ];
 	  masApps = {
 		"onedrive" = 823766827;
 		"onenote" = 784801555;
 	  };
 	  onActivation.cleanup = "zap";
+	  onActivation.autoUpdate = true;
+	  onActivation.upgrade = true;
 	};
 
 	fonts.packages = [

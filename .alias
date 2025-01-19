@@ -37,7 +37,8 @@ alias tg='tree -if | grep'
 alias mol='molden -l'
 alias fullcharge='sudo tlp fullcharge'
 alias mg='sshfs danayo@grendel.cscaa.dk:/home/danayo/ ~/grendel -o reconnect,ServerAliveInterval=15,ServerAliveCountMax=3'
-alias cat='bat'
+#alias cat='bat'
+alias rebuild='darwin-rebuild switch --flake ~/.dotfiles/.config/nix#mini'
 
 alias res1="sed -i 's/monitor=DP-1,1920x1080@60.0,1265x583,1.0/monitor=DP-1,3440x1440@60,473x223,1.0/' ~/.config/hypr/monitors.conf"
 alias res2="sed -i 's/monitor=DP-1,3440x1440@60,473x223,1.0/monitor=DP-1,1920x1080@60.0,1265x583,1.0/' ~/.config/hypr/monitors.conf"
