@@ -1,0 +1,128 @@
+version: "3"
+services:
+  # Streaming Services
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Copenhagen
+    volumes:
+      - ./jellyfin_config:/config
+      - /media/tvshows:/data/tvshows
+      - /media/movies:/data/movies
+    ports:
+      - 8096:8096
+    restart: unless-stopped
+
+  sonarr:
+    image: linuxserver/sonarr
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Copenhagen
+    volumes:
+      - ./sonarr_config:/config
+      - /media/tvshows:/data/tvshows
+      - /media/qbittorrent/downloads:/data/downloads
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+
+  radarr:
+    image: linuxserver/radarr
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Copenhagen
+    volumes:
+      - ./radarr_config:/config
+      - /media/movies:/data/movies
+      - /media/qbittorrent/downloads:/data/downloads
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+
+  bazarr:
+    image: linuxserver/bazarr
+    container_name: bazarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Copenhagen
+    volumes:
+      - ./bazarr_config:/config
+      - /media/movies:/data/movies
+      - /media/tvshows:/data/tvshows
+    ports:
+      - 6767:6767
+    restart: unless-stopped
+
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    environment:
+      - LOG_LEVEL=debug
+      - TZ=Europe/Copenhagen
+    ports:
+      - 5055:5055
+    volumes:
+      - ./jellyseerr_config:/app/config
+    restart: unless-stopped
+
+  portainer:
+    image: portainer/portainer-ce
+    container_name: portainer
+    ports:
+      - 8000:8000
+      - 9000:9000
+    volumes:
+      - ./portainer_config:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+
+  # Downloading Services
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Copenhagen
+    volumes:
+      - ./prowlarr:/config
+      - /media/qbittorrent/downloads:/data/downloads
+    ports:
+      - 9696:9696
+    restart: unless-stopped
+
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Copenhagen
+      - WEBUI_PORT=8080
+    volumes:
+      - ./qbittorrent:/config
+      - /media/qbittorrent/downloads:/data/downloads
+      - /media/qbittorrent/watch:/data/watch
+    ports:
+      - 8080:8080
+      - 6881:6881
+      - 6881:6881/udp
+    restart: unless-stopped
+
+volumes:
+  jellyfin_config:
+  sonarr_config:
+  radarr_config:
+  bazarr_config:
+  jellyseerr_config:
+  portainer_config:
+  prowlarr:
+  qbittorrent:
