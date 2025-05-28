@@ -95,7 +95,9 @@ bindkey "^[[A" up-line-or-beginning-search # Up
 bindkey "^[[B" down-line-or-beginning-search # Down
 
 # PATHS
-export PATH="/opt/homebrew/opt/python@3.12/libexec/bin:$PATH"
+export PATH="/opt/homebrew/opt/python@3.11/libexec/bin:$PATH"
+export PATH="/opt/homebrew/bin:$PATH"
+
 
 # show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
 # export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
@@ -115,4 +117,4 @@ _fzf_comprun() {
 }
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-source "${HOME}/.environmental_variables" 
+source "${HOME}/.environment_variables" 
